@@ -1,0 +1,43 @@
+{
+    "title":{
+	"text":  "Temperatur Rönnebodavägen",
+	"style": "{font-size: 20px; color: #0000ff; font-family: Verdana; text-align: center;}"
+    },
+
+    "y_legend":{
+	"text": "Temperatur [Celsius]",
+	"style": "{color: #736AFF; font-size: 12px;}"
+    },
+
+    "elements":[
+	{
+	    "type":      "line",
+	    "colour":    "#9933CC",
+	    "text":      "Verdana",
+	    "text-align": "center",
+	    "font-size": 10,
+	    "values":    [9, 25,6,7,9,5,7,6,9,7]
+	}
+    ],
+
+    "x_axis":{
+	"stroke":1,
+	"tick_height":10,
+	"colour":"#d000d0",
+	"grid_colour":"#00ff00",
+	"labels": {
+	    "labels": ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep"]
+	}
+    },
+
+    "y_axis":{
+	"stroke":      4,
+	"tick_length": 3,
+	"colour":      "#d000d0",
+	"grid_colour": "#00ff00",
+	"offset":      0,
+	"max":         20
+    }
+}
+
+ 
