@@ -7,11 +7,12 @@
 
   <body>
   <?php
-     $db = new SQLite3('templog.db');
-     $results = $db->query('SELECT * FROM temps');
-     while ($row = $results->fetchArray()) {
+    $db = new SQLite3('templog.db');
+    $results = $db->query('SELECT * FROM temps LIMIT 72');
+    while ($row = $results->fetchArray()) {
 		$data[] = $row['temp'];
-     }
+		$datetimes[] = $row['date'];
+	}
 
 	$avgtemp = $db->query('SELECT AVG(temp) AS avg FROM temps GROUP BY DATE(date)');
 	while ($row = $avgtemp->fetchArray()) {
@@ -44,19 +45,23 @@
   $(function () {
      $('#container').highcharts({
             chart: {
-               zoomType: 'x'
+               	zoomType: 'x'
             },
             title: {
-               text: 'Temperatur'
+               	text: 'Temperatur'
             },
             xAxis: {
-  //categories: [<?php echo join($dates, ',') ?>]
-               type: 'datetime'  
+				categories: <?php
+								$time[] = [];
+								foreach ($datetimes as $val) {
+									$time[] = date("H:i:s", strtotime($val));
+								}
+								echo json_encode($time); ?>
             },
             yAxis: {
-               title: {
-                  text: 'Temperatur'
-               }
+               	title: {
+                    text: 'Temperatur'
+               	}
             },
   series: [{
   data: [<?php echo join($data, ',') ?>],
@@ -74,7 +79,12 @@
                text: 'Daglig medeltemperatur'
             },
             xAxis: {
-               categories: [<?php echo join($dates, ',') ?>] 
+				categories: <?php
+								$dayAvg[] = [];
+								foreach ($datetimes as $val) {
+									$dayAvg[] = date("d/m-y", strtotime($val));
+								}
+								echo json_encode($dayAvg); ?>
             },
             yAxis: {
                title: {
@@ -83,7 +93,6 @@
             },
   series: [{
   data: [<?php echo join($avgDay, ',') ?>],
-  //data: [1,2,3,4],
   type: 'area',
   pointStart: 0,
   }]
