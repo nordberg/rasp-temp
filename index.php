@@ -14,9 +14,10 @@
 		$datetimes[] = $row['date'];
 	}
 
-	$avgtemp = $db->query('SELECT AVG(temp) AS avg FROM temps GROUP BY DATE(date)');
+	$avgtemp = $db->query('SELECT date, AVG(temp) AS avg FROM temps GROUP BY DATE(date)');
 	while ($row = $avgtemp->fetchArray()) {
 		$avgDay[] = $row['avg'];
+		$days[] = $row['date'];
 	}
 
 	$summerRes = $db->query('SELECT AVG(temp) AS avg FROM temps GROUP BY DATE(date)
@@ -81,8 +82,8 @@
             xAxis: {
 				categories: <?php
 								$dayAvg[] = [];
-								foreach ($datetimes as $val) {
-									$dayAvg[] = date("d/m-y", strtotime($val));
+								foreach ($days as $i) {
+									$dayAvg[] = date("d/m-y", strtotime($i));
 								}
 								echo json_encode($dayAvg); ?>
             },
