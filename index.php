@@ -8,7 +8,7 @@
   <body>
   <?php
     $db = new SQLite3('templog.db');
-    $results = $db->query('SELECT * FROM temps LIMIT 72');
+    $results = $db->query('SELECT * FROM temps ORDER BY date DESC LIMIT 72');
     while ($row = $results->fetchArray()) {
 		$data[] = $row['temp'];
 		$datetimes[] = $row['date'];
