@@ -74,8 +74,9 @@
   $(function () {
      $('#container').highcharts({
             chart: {
-               	zoomType: 'x'
-            },
+               	zoomType: 'x',
+                height: 500
+  },
             title: {
                	text: 'Temperatur'
             },
@@ -88,7 +89,9 @@
 								echo json_encode($time); ?>
             },
             yAxis: {
-               	title: {
+            max: 20,
+  min: -10,
+  title: {
                     text: 'Temperatur'
                	}
             },
