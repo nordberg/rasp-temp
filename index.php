@@ -1,14 +1,42 @@
 <html>
 
   <head>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE-edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="http://code.highcharts.com/highcharts.js"></script>
+  	<link href="./bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="./bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="./Parallax-Scroll/dist/jquery.parallax-scroll.js"></script>
   </head>
+  <style type="text/css">
+	body {
+		width: 100%;
+		height: 100%;
+	}
+	
+	.bg-holder {
+		width: 100%;
+		height: 50%;
+	}
 
+	.bg-holder#pic1 {
+		background-image: url('./pics/pic1.jpg');
+	}
+
+	.bg-holder#pic2 {
+		background-image: url('./pics/pic2.jpg');
+	}
+
+	.bg-holder#pic3 {
+		background-image: url('./pics/pic3.jpg');
+	}
+  </style>
   <body>
   <?php
     $db = new SQLite3('templog.db');
-    $results = $db->query('SELECT * FROM temps ORDER BY date DESC LIMIT 72');
+    $results = $db->query('SELECT * FROM (SELECT * FROM temps ORDER BY date DESC LIMIT 288) sub ORDER BY date ASC');
     while ($row = $results->fetchArray()) {
 		$data[] = $row['temp'];
 		$datetimes[] = $row['date'];
@@ -46,8 +74,9 @@
   $(function () {
      $('#container').highcharts({
             chart: {
-               	zoomType: 'x'
-            },
+               	zoomType: 'x',
+                height: 500
+  },
             title: {
                	text: 'Temperatur'
             },
@@ -60,7 +89,9 @@
 								echo json_encode($time); ?>
             },
             yAxis: {
-               	title: {
+            max: 20,
+  min: -10,
+  title: {
                     text: 'Temperatur'
                	}
             },
@@ -104,13 +135,31 @@
 		$('#summerYet').text("<?php echo $summerYet ?>");
 	});
 </script>
-
-	<center><h2>Is it summer yet? </h2><h2 id="summerYet"></h2> </br></center>
-    <div id="container" style="width:100%, height:400px;"></div>
-	<br>
-	<center>
-		<div id="container_avg_day" style="width:50%, height:400px;"></div>
-	</center>	
+	<section>
+		<center><h2>Is it summer yet? </h2><h2 id="summerYet"></h2> </br></center>
+    </section>
+	<div id="pic1" class="bg-holder" data-width="1920" data-height="1080"></div>
+	<section>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div id="container" style="width:100%, height:400px;"></div>
+		</div>
+	</div>
+	</section>
+	<div id="pic2" class="bg-holder" data-width="1920" data-height="1080"></div>
+	<section>
+	<div class="panel panel-dafult">
+		<div class="panel-body">
+			<div id="container_avg_day" style="width:50%, height:400px;"></div>
+		</div>
+	</div>
+	</section>
+	<div id="pic3" class="bg-holder" data-width="1920" data-height="1080"></div>
+	<script>
+		$('.bg-holder').parallaxScroll({
+			friction: 0.5
+		});
+	</script>
 </body>
 
 </html>

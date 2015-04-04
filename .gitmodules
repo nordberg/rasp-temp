@@ -1,0 +1,6 @@
+[submodule "bootstrap"]
+	path = bootstrap
+	url = https://github.com/twitter/bootstrap.git
+[submodule "Parallax-Scroll"]
+	path = Parallax-Scroll
+	url = https://github.com/aentan/Parallax-Scroll
