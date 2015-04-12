@@ -75,8 +75,9 @@
      $('#container').highcharts({
             chart: {
                	zoomType: 'x',
-                height: 500
-  },
+                height: 500,
+                width: 500
+ 			},
             title: {
                	text: 'Temperatur'
             },
