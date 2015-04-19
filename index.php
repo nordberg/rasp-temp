@@ -36,7 +36,7 @@
   <body>
   <?php
     $db = new SQLite3('templog.db');
-    $results = $db->query('SELECT * FROM (SELECT * FROM temps ORDER BY date DESC LIMIT 288) sub ORDER BY date ASC');
+    $results = $db->query('SELECT * FROM (SELECT * FROM temps ORDER BY date DESC LIMIT 1440) sub ORDER BY date ASC');
     while ($row = $results->fetchArray()) {
 		$data[] = $row['temp'];
 		$datetimes[] = $row['date'];
@@ -75,8 +75,8 @@
      $('#container').highcharts({
             chart: {
                	zoomType: 'x',
-                height: 500,
-                width: 500
+                height: 768,
+                width: 1024
  			},
             title: {
                	text: 'Temperatur'
@@ -90,8 +90,8 @@
 								echo json_encode($time); ?>
             },
             yAxis: {
-            max: 20,
-  min: -10,
+            max: 25,
+  min: -5,
   title: {
                     text: 'Temperatur'
                	}
