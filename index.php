@@ -49,12 +49,12 @@
 	}
 
 	$summerRes = $db->query('SELECT AVG(temp) AS avg FROM temps GROUP BY DATE(date)
-		LIMIT 7');
+		LIMIT 5');
 	while ($row = $summerRes->fetchArray()) {
 		$summerTemps[] = $row['avg'];
 	}
 
-	if (sizeof($summerTemps) < 7) {
+	if (sizeof($summerTemps) < 5) {
 		$summerYet = "Not enough data.";
 	} else {
 		$pos = 0;
@@ -63,7 +63,7 @@
 				$pos += 1;
 			}
 		}
-		if ($pos >= 7) {
+		if ($pos >= 5) {
 			$summerYet = "Yes, it's summer!";
 		} else {
 			$summerYet = "Nope, not summer!";
@@ -75,8 +75,6 @@
      $('#container').highcharts({
             chart: {
                	zoomType: 'x',
-                height: 768,
-                width: 1024
  			},
             title: {
                	text: 'Temperatur'
@@ -90,7 +88,7 @@
 								echo json_encode($time); ?>
             },
             yAxis: {
-            max: 25,
+            max: 30,
   min: -5,
   title: {
                     text: 'Temperatur'
